@@ -25,7 +25,6 @@ data:
   #                "teardown" - run in tearing down mode. As pan-cn-ngfw pod exits
   #                             or starts, it will cleanup all info.
   #                 "service" - run in CN-Series V2, FW as a service in K8S environment
-  #                 "ilbservice" - run in CN-Series V2, FW as a service in public cloud
   #        "dpservicename":  This is need if mode is "service". It is the name of the DP
   #                          service deployed.
   #        "dpservicenamespace": - This is need if mode is "service". It is the namespace of the DP
@@ -35,6 +34,7 @@ data:
   #        "maxpod_failover": "failopen" - when max pods are being served, bypass
   #                                        firewall for the new pods. Defaults to
   #                                        wait/block on free spot.
+  #        "override_mtu": Override the mtu used in the application pod. Defaults to auto mtu detection.
   #        "kubernetes": {
   #           "security_namespaces": All possible namespaces where pan-cn-ngfw
   #                    DaemonSets can be deployed (not application pod's namespace).
@@ -57,6 +57,7 @@ data:
           "interfaces": ["eth0"],
           "interfacesip": [""],
           "interfacesmac": [""],
+          "override_mtu": "",
           "kubernetes": {
               "kubeconfig": "__KUBECONFIG_FILEPATH__",
               "cni_bin_dir": "/home/kubernetes/bin",
