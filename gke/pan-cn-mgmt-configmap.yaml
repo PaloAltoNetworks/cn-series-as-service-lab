@@ -33,13 +33,13 @@ data:
   
   # Enable high feature capacities. These need high memory for MGMT pod and
   # higher/matching memory than specified below for NGFW pod.
-  #PAN_NGFW_MEMORY="6Gi"
-  #PAN_NGFW_MEMORY="40Gi"
-
-  # For enabling faster datapath - AF_XDP, default is AF_PACKETV2. This requires kernel support.
-  #PAN_DATA_MODE: "next-gen"
+  # Refer to the system requirements documentation to see the max supported NGFW CPU size
+  # supported for each memory profile.
+  #PAN_NGFW_MEMORY: "6.5Gi"
+  #PAN_NGFW_MEMORY: "48Gi"
+  #PAN_NGFW_MEMORY: "56Gi"
 
   #HPA Params
-  PAN_CLOUD: "GKE"
-  HPA_NAME: "lab" #unique name to identify hpa resource per namespace or per tenant
-  PUSH_INTERVAL: "15" #time interval to publish metrics to stackdriver
+  #PAN_CLOUD: "GKE"
+  #HPA_NAME: "<name>" #unique name to identify hpa resource per namespace or per tenant
+  #PUSH_INTERVAL: "15" #time interval to publish metrics to stackdriver

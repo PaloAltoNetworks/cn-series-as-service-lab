@@ -119,8 +119,9 @@ spec:
           resources:
             requests:
               # configurable based on desired logging, capacities
+              # refer to recommended system requirements for CPU & memory from Deployment guide
               cpu: "2"
-              memory: "2.0Gi"
+              memory: "3.0Gi"
             limits:
               cpu: "4"
               memory: "4.0Gi"
@@ -141,6 +142,9 @@ spec:
             mountPath: /opt/plugins/opt/pancfg/mgmt/plugins/
           - mountPath: /dev/shm
             name: dshm
+          # Optional for custom cert
+          - name: pancustomca
+            mountPath: /etc/custom-ca
           envFrom:
           - configMapRef:
               name: pan-mgmt-config
@@ -173,26 +177,37 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: spec.nodeName
+          - name: PAN_DP_NAME
+            # Don't change this. Needs to match the prefix in secret volume
+            # sw-secret in pan-cn-ngfw.yaml and hard-coded in ipsec.conf
+            value: pan-fw
  
       volumes:
       - name: dshm
         emptyDir:
           medium: Memory
+      # Optional for custom cert - Pass custom CA cert as a secret with file name ca.crt
+      - name: pancustomca
+        secret:
+          secretName: custom-ca-secret
+          optional: true
   volumeClaimTemplates:
   - metadata:
       name: panlogs
     spec:
+      #storageClassName: pan-cn-storage-class //For better disk iops performance for logging
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 20Gi
+          storage: 20Gi #Change this to 200Gi while using storageClassName for better iops
   - metadata:
       name: varlogpan
     spec:
+      #storageClassName: pan-cn-storage-class //For better disk iops performance for dp logs
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 20Gi
+          storage: 20Gi #Change this to 200Gi while using storageClassName for better iops
   - metadata:
       name: varcores
     spec:
