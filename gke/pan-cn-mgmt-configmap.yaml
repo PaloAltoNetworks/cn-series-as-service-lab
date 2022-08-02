@@ -39,7 +39,7 @@ data:
   #PAN_NGFW_MEMORY: "48Gi"
   #PAN_NGFW_MEMORY: "56Gi"
 
-  #HPA Params
-  #PAN_CLOUD: "GKE"
-  #HPA_NAME: "<name>" #unique name to identify hpa resource per namespace or per tenant
-  #PUSH_INTERVAL: "15" #time interval to publish metrics to stackdriver
+#HPA Params
+  PAN_CLOUD: "GKE"
+  HPA_NAME: "lab" #unique name to identify hpa resource per namespace or per tenant
+  PUSH_INTERVAL: "15" #time interval to publish metrics to stackdriver
