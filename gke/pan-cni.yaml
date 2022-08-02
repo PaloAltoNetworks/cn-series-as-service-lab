@@ -26,7 +26,8 @@ spec:
         # priority scheduling and that its resources are reserved
         # if it ever gets evicted.
         paloaltonetworks.com/app: pan-cni
-        scheduler.alpha.kubernetes.io/critical-pod: ''
+        # scheduler.alpha.kubernetes.io/critical-pod: ''
+        priorityClassName: system-node-critical
     spec:
       nodeSelector:
         kubernetes.io/os: linux
